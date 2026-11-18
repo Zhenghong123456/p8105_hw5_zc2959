@@ -1,0 +1,45 @@
+---
+title: "P8105 Homework 5"
+author: "Zhenghong Chen zc2959"
+date: "2026-11-18"
+output: github_document
+---
+
+# Problem 1
+
+
+
+
+
+
+
+
+
+
+
+# Problem 2
+
+
+
+
+
+
+
+
+
+
+
+
+# Problem 3
+
+
+
+
+
+
+
+
+
+
+
+
