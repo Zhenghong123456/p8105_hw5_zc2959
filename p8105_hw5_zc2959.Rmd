@@ -5,12 +5,24 @@ date: "2026-11-18"
 output: github_document
 ---
 
+```{r setup, include=FALSE}
+library(tidyverse)
+
+set.seed(1)
+```
+
+
 # Problem 1
 
+I wrote a function to simulate birthdays for a group of people and check whether at least two people share the same birthday. Each birthday is randomly sampled from 365 possible days with replacement. The function returns TRUE if there is a shared birthday and FALSE otherwise.
 
 
-
-
+```{r birthday-function}
+birthday_match = function(group_size) {
+  birthdays = sample(1:365, group_size, replace = TRUE)
+  n_distinct(birthdays) < group_size
+}
+```
 
 
 
