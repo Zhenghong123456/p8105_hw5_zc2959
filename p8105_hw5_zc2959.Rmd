@@ -88,21 +88,35 @@ I used the file names to get the study arm and subject ID. Then I combined the f
 ```{r tidy}
 study_tidy_df =
   participant_files_df |>
-  separate( file_name, into = c("arm", "subject_id"), sep = "_" ) |>
+  separate(
+    file_name,
+    into = c("arm", "subject_id"),
+    sep = "_"
+  ) |>
   mutate(
     arm = str_replace(arm, "con", "Control"),
     arm = str_replace(arm, "exp", "Experimental"),
     subject_id = str_replace(subject_id, "\\(2\\)", ""),
-    subject_id = str_replace(subject_id, "\\.csv$", "") ) |>
+    subject_id = str_replace(subject_id, "\\.csv$", "")
+  ) |>
   unnest(cols = "subject_data") |>
-  pivot_longer( week_1:week_8, names_to = "week", values_to = "observation" ) |>
-  mutate( week = as.numeric(str_replace(week, "week_", "")) ) |>
+  pivot_longer(
+    week_1:week_8,
+    names_to = "week",
+    values_to = "observation"
+  ) |>
+  mutate(
+    week = as.numeric(str_replace(week, "week_", ""))
+  ) |>
   select(arm, subject_id, week, observation) |>
   arrange(arm, subject_id, week)
 
 study_tidy_df |>
   group_by(arm) |>
-  summarize( n_subjects = n_distinct(subject_id), n_observations = n() ) |>
+  summarize(
+    n_subjects = n_distinct(subject_id),
+    n_observations = n()
+  ) |>
   knitr::kable()
 ```
 
