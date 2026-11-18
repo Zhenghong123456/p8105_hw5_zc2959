@@ -188,7 +188,40 @@ sim_results_df =
 ```
 
 
+## Statistical power
 
+I calculated the proportion of tests that rejected the null hypothesis for each true mean, using a significance level of 0.05.
+
+```{r power}
+power_df =
+  sim_results_df |>
+  group_by(true_mu) |>
+  summarize(
+    power = mean(reject_null)
+  )
+
+power_df |>
+  knitr::kable(digits = 3)
+```
+
+```{r power-plot}
+power_df |>
+  ggplot(aes(x = true_mu, y = power)) +
+  geom_line() +
+  geom_point(size = 2) +
+  labs(
+    title = "Statistical Power by True Mean",
+    x = "True mean",
+    y = "Proportion of tests rejecting H0"
+  ) +
+  scale_x_continuous(breaks = 0:6) +
+  scale_y_continuous(
+    breaks = c(0, .25, .5, .75, 1),
+    limits = c(0, 1)
+  )
+```
+
+The rejection rate increases as the true mean gets farther from zero. When the true mean is 0, the rejection rate is close to 5%. For larger values of the true mean, the test has higher power and is more likely to reject the null hypothesis.
 
 
 
