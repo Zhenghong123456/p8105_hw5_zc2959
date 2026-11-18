@@ -293,5 +293,12 @@ mean_comparison_df |>
 ```
 
 
+## Results
+
+The average estimates from all simulations are close to the true means, as expected.
+
+However, when only the tests that rejected the null hypothesis are included, the average estimates tend to be farther from zero, especially for smaller nonzero values of the true mean. This is because tests with more extreme estimates are more likely to be statistically significant.
+
+At a true mean of zero, positive and negative significant estimates can cancel out, so their average may still be close to zero. As power increases, the average estimate among rejected tests gets closer to the true mean.
 
 
