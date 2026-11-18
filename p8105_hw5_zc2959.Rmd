@@ -70,9 +70,15 @@ The estimated probability of a shared birthday increases as the group size grows
 
 # Problem 2
 
+## Importing the data
 
+I first listed all the participant files and used `map()` to read each file into a list column.
 
-
+```{r import, message=FALSE}
+participant_files_df =
+  tibble( file_name = list.files("./data", pattern = "^con_|^exp_") ) |>
+  mutate( subject_data = purrr::map( file_name, \(file) read_csv(str_c("./data/", file)) ) )
+```
 
 
 
