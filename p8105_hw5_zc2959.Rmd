@@ -157,6 +157,16 @@ The two groups start at fairly similar levels, but the difference becomes much l
 
 # Problem 3
 
+## Simulation
+
+```{r}
+sim_ttest = function(true_mu) {
+  sim_data = rnorm(30, mean = true_mu, sd = 5)
+  t.test(sim_data, mu = 0) |>
+    broom::tidy() |>
+    select(estimate, p.value)
+}
+```
 
 
 
