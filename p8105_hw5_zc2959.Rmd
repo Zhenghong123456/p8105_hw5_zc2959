@@ -121,6 +121,31 @@ study_tidy_df |>
 ```
 
 
+## Spaghetti plot
+
+I plotted each subject's measurements over the eight weeks and separated the two study arms to compare their patterns.
+
+```{r plot}
+study_tidy_df |>
+  ggplot(
+    aes(
+      x = week,
+      y = observation,
+      group = subject_id,
+      color = arm
+    )
+  ) +
+  geom_line(alpha = .7) +
+  geom_point(size = 1) +
+  facet_grid(. ~ arm) +
+  labs(
+    title = "Weekly Observations by Study Arm",
+    x = "Week",
+    y = "Observation"
+  ) +
+  scale_x_continuous(breaks = 1:8) +
+  theme(legend.position = "none")
+```
 
 
 
