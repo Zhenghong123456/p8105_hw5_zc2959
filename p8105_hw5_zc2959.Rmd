@@ -46,7 +46,7 @@ For each group size, I estimated the probability of a shared birthday by taking 
 birthday_prob_df = 
   birthday_sim_df |>
   group_by(group_size) |>
-  summarize( probability = mean(shared_birthday))
+  summarize(probability = mean(shared_birthday))
 
 birthday_prob_df |>
   filter(group_size %in% c(2, 10, 23, 30, 40, 50)) |>
@@ -233,7 +233,7 @@ power_df |>
   )
 ```
 
-The rejection rate increases as the true mean gets farther from zero. When the true mean is 0, the rejection rate is close to 5%. For larger values of the true mean, the test has higher power and is more likely to reject the null hypothesis.
+Power increases as the effect size (the true mean) increases. When the true mean is 0, the null hypothesis is actually true, so the rejection rate of `r round(power_df$power[power_df$true_mu == 0], 3)` is the type I error rate, and it is close to 0.05 as expected. Power is low when the true mean is 1 (`r round(power_df$power[power_df$true_mu == 1], 3)`), increases quickly between 1 and 3, and is close to 1 once the true mean is 4 or larger. With the same sample size and standard deviation, larger effects are much easier to detect.
 
 
 ## Average estimated mean
@@ -307,10 +307,11 @@ mean_comparison_df |>
 
 ## Results
 
-The average estimates from all simulations are close to the true means, as expected.
+Across all 5,000 simulations, the average estimated mean is very close to the true mean for every value of the true mean, as expected.
 
-However, when only the tests that rejected the null hypothesis are included, the average estimates tend to be farther from zero, especially for smaller nonzero values of the true mean. This is because tests with more extreme estimates are more likely to be statistically significant.
+However, the average estimate among tests that rejected the null is not approximately equal to the true mean when the true mean is small. For example, when the true mean is 1, the average estimate among rejected tests is `r round(rejected_estimates_df$mean_estimate_rejected[rejected_estimates_df$true_mu == 1], 2)`, which is much larger than 1. This is because we only keep the samples where the test was significant. With a sample size of 30 and a standard deviation of 5, the estimate needs to be roughly 1.9 or more away from 0 for the test to reject, so when power is low, the rejected samples are mostly the ones with unusually large estimates.
 
-At a true mean of zero, positive and negative significant estimates can cancel out, so their average may still be close to zero. As power increases, the average estimate among rejected tests gets closer to the true mean.
+As the true mean increases, power gets close to 1, so almost all tests reject the null and the average estimate among rejected tests becomes close to the true mean (for true means of 4, 5, and 6 they are nearly the same). At a true mean of zero, significant estimates fall on both sides of zero and roughly cancel out, so their average is still close to zero.
+
 
 
